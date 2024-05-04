@@ -1,37 +1,39 @@
-import enum
+import dataclasses
+import datetime
+import decimal
 
 
-@enum.unique
-class AttributeType(enum.Enum):
+@dataclasses.dataclass(frozen=True)
+class Transaction:
     # the filename of import source
-    file = "file"
+    file: str | None = None
     # the entry line number of the source file
-    lineno = "lineno"
+    lineno: int | None = None
     # date of the transaction
-    date = "date"
+    date: datetime.date | None = None
     # date when the transaction posted
-    post_date = "post_date"
+    post_date: datetime.date | None = None
     # timestamp of the transaction
-    timestamp = "timestamp"
+    timestamp: datetime.datetime | None = None
     # description of the transaction
-    desc = "desc"
+    desc: str | None = None
     # transaction amount
-    amount = "amount"
+    amount: decimal.Decimal | None = None
     # ISO 4217 currency symbol
-    currency = "currency"
+    currency: str | None = None
     # category of the transaction, like Entertainment, Shopping, etc..
-    category = "category"
+    category: str | None = None
     # status of the transaction
-    status = "status"
+    status: str | None = None
     # type of the transaction, such as Sale, Return, Debit, etc
-    type = "type"
+    type: str | None = None
     # Source account of the transaction
-    source_account = "source_account"
+    source_account: str | None = None
     # destination account of the transaction
-    dest_account = "dest_account"
+    dest_account: str | None = None
     # note or memo for the transaction
-    note = "note"
+    note: str | None = None
     # Reference value
-    reference = "reference"
+    reference: str | None = None
     # Payee of the transaction
-    payee = "payee"
+    payee: str | None = None

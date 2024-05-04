@@ -27,7 +27,9 @@ def parse_datetime(timestamp_str: str) -> datetime.datetime:
 
 
 class MercuryExtractor:
-    def __init__(self, input_file: io.TextIOBase):
+    EXTRACTOR_NAME = "mercury"
+
+    def __init__(self, input_file: typing.TextIO):
         self.input_file = input_file
 
     def __call__(self) -> typing.Generator[Transaction, None, None]:
@@ -38,7 +40,7 @@ class MercuryExtractor:
         timezone = pytz.UTC
         for i, row in enumerate(reader):
             yield Transaction(
-                extractor=self.__class__.__name__,
+                extractor=self.EXTRACTOR_NAME,
                 file=filename,
                 lineno=i + 1,
                 date=parse_date(row["Date (UTC)"]),
@@ -50,6 +52,7 @@ class MercuryExtractor:
                 reference=row["Reference"],
                 note=row["Note"],
                 category=row["Category"],
+                currency=row["Original Currency"],
                 timestamp=parse_datetime(row["Timestamp"]).astimezone(timezone),
                 timezone="UTC",
             )

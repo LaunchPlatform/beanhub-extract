@@ -5,6 +5,7 @@ import decimal
 
 @dataclasses.dataclass(frozen=True)
 class Transaction:
+    extractor: str
     # the filename of import source
     file: str | None = None
     # the entry line number of the source file
@@ -15,8 +16,12 @@ class Transaction:
     post_date: datetime.date | None = None
     # timestamp of the transaction
     timestamp: datetime.datetime | None = None
+    # timezone of the transaction, needs to be one of timezone value supported by pytz
+    timezone: str | None = None
     # description of the transaction
     desc: str | None = None
+    # description of the transaction provided by the bank
+    bank_desc: str | None = None
     # transaction amount
     amount: decimal.Decimal | None = None
     # ISO 4217 currency symbol

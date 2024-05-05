@@ -1,6 +1,7 @@
 import csv
 import datetime
 import decimal
+import os
 import typing
 
 import pytz
@@ -36,16 +37,16 @@ class MercuryExtractor:
         filename = None
         if hasattr(self.input_file, "name"):
             filename = self.input_file.name
+        line_count = len(self.input_file.readlines()) - 1
+        self.input_file.seek(os.SEEK_SET, 0)
         reader = csv.DictReader(self.input_file)
-        # this consumes quite some memory, but it should be fine assume most csv dump files are small
-        rows = list(reader)
         timezone = pytz.UTC
-        for i, row in enumerate(rows):
+        for i, row in enumerate(reader):
             yield Transaction(
                 extractor=self.EXTRACTOR_NAME,
                 file=filename,
                 lineno=i + 1,
-                reversed_lineno=i - len(rows),
+                reversed_lineno=i - line_count,
                 date=parse_date(row["Date (UTC)"]),
                 desc=row["Description"],
                 amount=decimal.Decimal(row["Amount"]),

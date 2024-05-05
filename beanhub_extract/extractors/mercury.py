@@ -45,7 +45,7 @@ class MercuryExtractor:
                 extractor=self.EXTRACTOR_NAME,
                 file=filename,
                 lineno=i + 1,
-                reversed_lineno=len(rows) - i,
+                reversed_lineno=i - len(rows),
                 date=parse_date(row["Date (UTC)"]),
                 desc=row["Description"],
                 amount=decimal.Decimal(row["Amount"]),

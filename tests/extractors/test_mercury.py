@@ -56,7 +56,7 @@ def test_parse_datetime(datetime_str: str, expected: datetime.datetime):
                     lineno=1,
                     date=datetime.date(2024, 4, 17),
                     timestamp=datetime.datetime(
-                        2024, 4, 18, 4, 30, 40, tzinfo=pytz.UTC
+                        2024, 4, 17, 21, 30, 40, tzinfo=pytz.UTC
                     ),
                     timezone="UTC",
                     desc="GUSTO",
@@ -75,7 +75,7 @@ def test_parse_datetime(datetime_str: str, expected: datetime.datetime):
                     lineno=2,
                     date=datetime.date(2024, 4, 16),
                     timestamp=datetime.datetime(
-                        2024, 4, 16, 10, 25, 55, tzinfo=pytz.UTC
+                        2024, 4, 16, 3, 25, 55, tzinfo=pytz.UTC
                     ),
                     timezone="UTC",
                     desc="Amazon Web Services",
@@ -94,7 +94,7 @@ def test_parse_datetime(datetime_str: str, expected: datetime.datetime):
                     lineno=3,
                     date=datetime.date(2024, 4, 16),
                     timestamp=datetime.datetime(
-                        2024, 4, 16, 10, 24, 57, tzinfo=pytz.UTC
+                        2024, 4, 16, 3, 24, 57, tzinfo=pytz.UTC
                     ),
                     timezone="UTC",
                     desc="Adobe",
@@ -113,7 +113,7 @@ def test_parse_datetime(datetime_str: str, expected: datetime.datetime):
                     lineno=4,
                     date=datetime.date(2024, 4, 15),
                     timestamp=datetime.datetime(
-                        2024, 4, 15, 21, 35, 37, tzinfo=pytz.UTC
+                        2024, 4, 15, 14, 35, 37, tzinfo=pytz.UTC
                     ),
                     timezone="UTC",
                     desc="Jane Doe",

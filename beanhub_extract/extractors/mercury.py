@@ -1,7 +1,6 @@
 import csv
 import datetime
 import decimal
-import io
 import typing
 
 import pytz
@@ -53,6 +52,6 @@ class MercuryExtractor:
                 note=row["Note"],
                 category=row["Category"],
                 currency=row["Original Currency"],
-                timestamp=parse_datetime(row["Timestamp"]).astimezone(timezone),
+                timestamp=parse_datetime(row["Timestamp"]).replace(tzinfo=timezone),
                 timezone="UTC",
             )

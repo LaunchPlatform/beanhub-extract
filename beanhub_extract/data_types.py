@@ -10,6 +10,8 @@ class Transaction:
     file: str | None = None
     # the entry line number of the source file
     lineno: int | None = None
+    # the entry line number of the source file in reverse order. comes handy for CSV files in desc datetime order
+    reversed_lineno: int | None = None
     # date of the transaction
     date: datetime.date | None = None
     # date when the transaction posted

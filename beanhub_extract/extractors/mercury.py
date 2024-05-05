@@ -27,6 +27,7 @@ def parse_datetime(timestamp_str: str) -> datetime.datetime:
 
 class MercuryExtractor:
     EXTRACTOR_NAME = "mercury"
+    DEFAULT_IMPORT_ID = "{{ file }}:{{ reversed_lineno }}"
 
     def __init__(self, input_file: typing.TextIO):
         self.input_file = input_file
@@ -36,12 +37,15 @@ class MercuryExtractor:
         if hasattr(self.input_file, "name"):
             filename = self.input_file.name
         reader = csv.DictReader(self.input_file)
+        # this consumes quite some memory, but it should be fine assume most csv dump files are small
+        rows = list(reader)
         timezone = pytz.UTC
-        for i, row in enumerate(reader):
+        for i, row in enumerate(rows):
             yield Transaction(
                 extractor=self.EXTRACTOR_NAME,
                 file=filename,
                 lineno=i + 1,
+                reversed_lineno=len(rows) - i,
                 date=parse_date(row["Date (UTC)"]),
                 desc=row["Description"],
                 amount=decimal.Decimal(row["Amount"]),

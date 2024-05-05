@@ -54,6 +54,7 @@ def test_parse_datetime(datetime_str: str, expected: datetime.datetime):
                     extractor="mercury",
                     file="mercury.csv",
                     lineno=1,
+                    reversed_lineno=4,
                     date=datetime.date(2024, 4, 17),
                     timestamp=datetime.datetime(
                         2024, 4, 17, 21, 30, 40, tzinfo=pytz.UTC
@@ -73,6 +74,7 @@ def test_parse_datetime(datetime_str: str, expected: datetime.datetime):
                     extractor="mercury",
                     file="mercury.csv",
                     lineno=2,
+                    reversed_lineno=3,
                     date=datetime.date(2024, 4, 16),
                     timestamp=datetime.datetime(
                         2024, 4, 16, 3, 25, 55, tzinfo=pytz.UTC
@@ -92,6 +94,7 @@ def test_parse_datetime(datetime_str: str, expected: datetime.datetime):
                     extractor="mercury",
                     file="mercury.csv",
                     lineno=3,
+                    reversed_lineno=2,
                     date=datetime.date(2024, 4, 16),
                     timestamp=datetime.datetime(
                         2024, 4, 16, 3, 24, 57, tzinfo=pytz.UTC
@@ -111,6 +114,7 @@ def test_parse_datetime(datetime_str: str, expected: datetime.datetime):
                     extractor="mercury",
                     file="mercury.csv",
                     lineno=4,
+                    reversed_lineno=1,
                     date=datetime.date(2024, 4, 15),
                     timestamp=datetime.datetime(
                         2024, 4, 15, 14, 35, 37, tzinfo=pytz.UTC

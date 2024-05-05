@@ -1,5 +1,6 @@
 import datetime
 import decimal
+import functools
 import pathlib
 
 import pytest
@@ -10,6 +11,7 @@ from beanhub_extract.extractors.mercury import MercuryExtractor
 from beanhub_extract.extractors.mercury import parse_date
 from beanhub_extract.extractors.mercury import parse_datetime
 from beanhub_extract.extractors.mercury import parse_time
+from beanhub_extract.utils import strip_txn_base_path
 
 
 @pytest.mark.parametrize(
@@ -133,4 +135,11 @@ def test_extractor(
 ):
     with open(fixtures_folder / input_file, "rt") as fo:
         extractor = MercuryExtractor(fo)
-        assert list(extractor()) == expected
+        assert (
+            list(
+                map(
+                    functools.partial(strip_txn_base_path, fixtures_folder), extractor()
+                )
+            )
+            == expected
+        )

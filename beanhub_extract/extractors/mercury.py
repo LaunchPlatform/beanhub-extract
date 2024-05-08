@@ -28,7 +28,7 @@ def parse_datetime(timestamp_str: str) -> datetime.datetime:
 
 class MercuryExtractor:
     EXTRACTOR_NAME = "mercury"
-    DEFAULT_IMPORT_ID = "{{ file }}:{{ reversed_lineno }}"
+    DEFAULT_IMPORT_ID = "{{ file | as_posix_path }}:{{ reversed_lineno }}"
 
     def __init__(self, input_file: typing.TextIO):
         self.input_file = input_file
@@ -37,7 +37,10 @@ class MercuryExtractor:
         filename = None
         if hasattr(self.input_file, "name"):
             filename = self.input_file.name
-        line_count = len(self.input_file.readlines()) - 1
+        row_count_reader = csv.DictReader(self.input_file)
+        row_count = 0
+        for _ in row_count_reader:
+            row_count += 1
         self.input_file.seek(os.SEEK_SET, 0)
         reader = csv.DictReader(self.input_file)
         timezone = pytz.UTC
@@ -46,7 +49,7 @@ class MercuryExtractor:
                 extractor=self.EXTRACTOR_NAME,
                 file=filename,
                 lineno=i + 1,
-                reversed_lineno=i - line_count,
+                reversed_lineno=i - row_count,
                 date=parse_date(row["Date (UTC)"]),
                 desc=row["Description"],
                 amount=decimal.Decimal(row["Amount"]),

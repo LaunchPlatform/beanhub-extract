@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "beanhub-extract"
-version = "0.0.5"
+version = "0.0.6"
 description = "The simple library for extracting all kind of bank account transaction export files, mostly for beanhub-import to inject and generate transactions"
 authors = ["Fang-Pen Lin <fangpen@launchplatform.com>"]
 license = "MIT"

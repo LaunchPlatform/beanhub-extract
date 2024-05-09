@@ -5,7 +5,20 @@ Have you ever wondered why each of us has to write our own different Beancount i
 
 ## Example
 
-TODO:
+Extracting transactions from the CSV file is easy.
+Simply create the extractor class and make a function call on the instance object, which will return a transaction object generator.
+Like this:
+
+```python
+from beanhub_extract.extractors.mercury import MercuryExtractor
+
+with open("/path/to/my-mercury.csv", "rt") as fo:
+    extractor = MercuryExtractor(fo)
+    for txn in extractor():
+        print(txn)
+        # process your transaction here
+
+```
 
 ## Transaction data object
 

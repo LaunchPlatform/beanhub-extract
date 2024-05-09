@@ -32,7 +32,7 @@ with open("/path/to/my-mercury.csv", "rt") as fo:
 
 ```
 
-# Sponsor
+## Sponsor
 
 <p align="center">
   <a href="https://beanhub.io"><img src="https://github.com/LaunchPlatform/beanhub-extract/raw/master/assets/beanhub.svg?raw=true" alt="BeanHub logo" /></a>

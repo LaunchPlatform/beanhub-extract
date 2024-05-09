@@ -3,6 +3,12 @@ The simple library for extracting all kind of bank account transaction export fi
 
 Have you ever wondered why each of us has to write our own different Beancount importers for the same bank again and again? Why we cannot use the same exporter for the same bank CSV file? One of the biggest problems of the original Beancount importer design is that the transaction generation logic is coupled with the extract logic, making it hard to reuse. We are addressing the problem by creating a library only for extracting bank-exported CSV files into standardized transaction structures to be processed later. Ideally, you should be able to import this library and use it to import standardized transactions from CSV files exported from any bank in the world.
 
+## Install
+
+```bash
+pip install beanhub-extract
+```
+
 ## Example
 
 Extracting transactions from the CSV file is easy.

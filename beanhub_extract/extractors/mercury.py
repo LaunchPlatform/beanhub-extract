@@ -46,7 +46,7 @@ class MercuryExtractor:
         timezone = pytz.UTC
         for i, row in enumerate(reader):
             kwargs = dict(
-                date=parse_date(row.pop("date")),
+                date=parse_date(row.pop("Date (UTC)")),
                 desc=row.pop("Description"),
                 amount=decimal.Decimal(row.pop("Amount")),
                 status=row.pop("Status"),
@@ -56,8 +56,13 @@ class MercuryExtractor:
                 note=row.pop("Note"),
                 category=row.pop("Category"),
                 currency=row.pop("Original Currency"),
-                timestamp=parse_datetime(row["Timestamp"]).replace(tzinfo=timezone),
+                name_on_card=row.pop("Name On Card"),
+                last_four_digits=row.pop("Last Four Digits"),
+                gl_code=row.pop("GL Code"),
+                timestamp=parse_datetime(row.pop("Timestamp")).replace(tzinfo=timezone),
             )
+            if row:
+                kwargs["extra"] = row
 
             yield Transaction(
                 extractor=self.EXTRACTOR_NAME,
@@ -65,6 +70,5 @@ class MercuryExtractor:
                 lineno=i + 1,
                 reversed_lineno=i - row_count,
                 timezone="UTC",
-                extra=row,
                 **kwargs
             )

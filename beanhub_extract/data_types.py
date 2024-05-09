@@ -44,5 +44,11 @@ class Transaction:
     reference: str | None = None
     # Payee of the transaction
     payee: str | None = None
+    # General Ledger Code
+    gl_code: str | None = None
+    # Name on the credit/debit card
+    name_on_card: str | None = None
+    # Last 4 digits of credit/debit card
+    last_four_digits: str | None = None
     # All the columns not handled and put into `Transaction`'s attributes by the extractor goes here
     extra: dict | None = None

@@ -46,7 +46,7 @@ We defined a standardized transaction data object to accommodate a transaction s
 The data object type is a simple immutable Python `dataclasses.dataclass` class.
 It's defined in the [beanhub_extract/data_types.py](beanhub_extract/data_types.py) file.
 
-## Supported Banks
+## Supported Formats
 
 Currently, we only support a few banks for our own benefit.
 If you find any particular bank CSV file or format missing and want this library to support it, please feel free to open a PR.

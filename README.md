@@ -1,4 +1,4 @@
-# beanhub-extract
+# beanhub-extract [![CircleCI](https://dl.circleci.com/status-badge/img/gh/LaunchPlatform/beanhub-extract/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/LaunchPlatform/beanhub-extract/tree/master)
 The simple library for extracting all kind of bank account transaction export files, mostly for [beanhub-import](https://github.com/LaunchPlatform/beanhub-import) to ingest and generate transactions
 
 **Note**: This project is still in early stage, still subject to rapid major changes

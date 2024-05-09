@@ -45,21 +45,26 @@ class MercuryExtractor:
         reader = csv.DictReader(self.input_file)
         timezone = pytz.UTC
         for i, row in enumerate(reader):
+            kwargs = dict(
+                date=parse_date(row.pop("date")),
+                desc=row.pop("Description"),
+                amount=decimal.Decimal(row.pop("Amount")),
+                status=row.pop("Status"),
+                source_account=row.pop("Source Account"),
+                bank_desc=row.pop("Bank Description"),
+                reference=row.pop("Reference"),
+                note=row.pop("Note"),
+                category=row.pop("Category"),
+                currency=row.pop("Original Currency"),
+                timestamp=parse_datetime(row["Timestamp"]).replace(tzinfo=timezone),
+            )
+
             yield Transaction(
                 extractor=self.EXTRACTOR_NAME,
                 file=filename,
                 lineno=i + 1,
                 reversed_lineno=i - row_count,
-                date=parse_date(row["Date (UTC)"]),
-                desc=row["Description"],
-                amount=decimal.Decimal(row["Amount"]),
-                status=row["Status"],
-                source_account=row["Source Account"],
-                bank_desc=row["Bank Description"],
-                reference=row["Reference"],
-                note=row["Note"],
-                category=row["Category"],
-                currency=row["Original Currency"],
-                timestamp=parse_datetime(row["Timestamp"]).replace(tzinfo=timezone),
                 timezone="UTC",
+                extra=row,
+                **kwargs
             )

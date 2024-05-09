@@ -44,3 +44,5 @@ class Transaction:
     reference: str | None = None
     # Payee of the transaction
     payee: str | None = None
+    # All the columns not handled and put into `Transaction`'s attributes by the extractor goes here
+    extra: dict | None = None

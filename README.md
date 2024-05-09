@@ -26,6 +26,14 @@ with open("/path/to/my-mercury.csv", "rt") as fo:
 
 ```
 
+# Sponsor
+
+<p align="center">
+  <a href="https://beanhub.io"><img src="https://github.com/LaunchPlatform/beanhub-extract/raw/master/assets/beanhub.svg?raw=true" alt="BeanHub logo" /></a>
+</p>
+
+A modern accounting book service based on the most popular open source version control system [Git](https://git-scm.com/) and text-based double entry accounting book software [Beancount](https://beancount.github.io/docs/index.html).
+
 ## Transaction data object
 
 We defined a standardized transaction data object to accommodate a transaction statement's most commonly used columns.

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "beanhub-extract"
-version = "0.0.7"
+version = "0.0.8"
 description = "The simple library for extracting all kind of bank account transaction export files, mostly for beanhub-import to inject and generate transactions"
 authors = ["Fang-Pen Lin <fangpen@launchplatform.com>"]
 license = "MIT"
@@ -8,7 +8,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-pytz = "^2024.1"
+pytz = ">= 2023.1, <2025"
 
 [tool.poetry.dev-dependencies]
 

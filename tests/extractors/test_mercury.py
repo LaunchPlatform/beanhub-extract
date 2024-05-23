@@ -166,6 +166,7 @@ def test_extractor(
     "input_file, expected",
     [
         ("mercury.csv", True),
+        ("chase_credit_card.csv", False),
         ("empty.csv", False),
         ("other.csv", False),
         (pytest.lazy_fixture("zip_file"), False),

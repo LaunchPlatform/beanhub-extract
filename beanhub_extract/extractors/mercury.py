@@ -9,6 +9,7 @@ import pytz
 
 from ..data_types import Fingerprint
 from ..data_types import Transaction
+from .base import ExtractorBase
 
 
 def parse_date(date_str: str) -> datetime.date:
@@ -28,7 +29,7 @@ def parse_datetime(timestamp_str: str) -> datetime.datetime:
     return datetime.datetime.combine(date, time)
 
 
-class MercuryExtractor:
+class MercuryExtractor(ExtractorBase):
     EXTRACTOR_NAME = "mercury"
     DEFAULT_IMPORT_ID = "{{ file | as_posix_path }}:{{ reversed_lineno }}"
     ALL_FIELDS = [
@@ -47,9 +48,6 @@ class MercuryExtractor:
         "Timestamp",
         "Original Currency",
     ]
-
-    def __init__(self, input_file: typing.TextIO):
-        self.input_file = input_file
 
     def detect(self) -> bool:
         reader = csv.DictReader(self.input_file)

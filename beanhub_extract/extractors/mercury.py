@@ -51,7 +51,10 @@ class MercuryExtractor:
 
     def detect(self) -> bool:
         reader = csv.DictReader(self.input_file)
-        return reader.fieldnames == self.ALL_FIELDS
+        try:
+            return reader.fieldnames == self.ALL_FIELDS
+        except Exception:
+            return False
 
     def __call__(self) -> typing.Generator[Transaction, None, None]:
         filename = None

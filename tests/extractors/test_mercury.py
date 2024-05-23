@@ -2,6 +2,7 @@ import datetime
 import decimal
 import functools
 import pathlib
+import zipfile
 
 import pytest
 import pytz
@@ -167,6 +168,7 @@ def test_extractor(
         ("mercury.csv", True),
         ("empty.csv", False),
         ("other.csv", False),
+        (pytest.lazy_fixture("zip_file"), False),
     ],
 )
 def test_detect(fixtures_folder: pathlib.Path, input_file: str, expected: bool):

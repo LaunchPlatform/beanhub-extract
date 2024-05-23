@@ -2,11 +2,11 @@ import datetime
 import decimal
 import functools
 import pathlib
-import zipfile
 
 import pytest
 import pytz
 
+from beanhub_extract.data_types import Fingerprint
 from beanhub_extract.data_types import Transaction
 from beanhub_extract.extractors.mercury import MercuryExtractor
 from beanhub_extract.extractors.mercury import parse_date
@@ -175,3 +175,12 @@ def test_detect(fixtures_folder: pathlib.Path, input_file: str, expected: bool):
     with open(fixtures_folder / input_file, "rt") as fo:
         extractor = MercuryExtractor(fo)
         assert extractor.detect() == expected
+
+
+def test_fingerprint(fixtures_folder: pathlib.Path):
+    with open(fixtures_folder / "mercury.csv", "rt") as fo:
+        extractor = MercuryExtractor(fo)
+        assert extractor.fingerprint() == Fingerprint(
+            starting_date=datetime.date(2024, 4, 15),
+            first_row_hash="24039f29eb959f67b19e1bdd0b8466513bef2c5bcdf5c11dd463e744abc23f85",
+        )

@@ -52,3 +52,11 @@ class Transaction:
     last_four_digits: str | None = None
     # All the columns not handled and put into `Transaction`'s attributes by the extractor goes here
     extra: dict | None = None
+
+
+@dataclasses.dataclass
+class Fingerprint:
+    # the starting date of rows
+    starting_date: datetime.date
+    # the hash value of the first row
+    first_row_hash: str

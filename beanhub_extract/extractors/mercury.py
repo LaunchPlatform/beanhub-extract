@@ -1,11 +1,13 @@
 import csv
 import datetime
 import decimal
+import hashlib
 import os
 import typing
 
 import pytz
 
+from ..data_types import Fingerprint
 from ..data_types import Transaction
 
 
@@ -55,6 +57,21 @@ class MercuryExtractor:
             return reader.fieldnames == self.ALL_FIELDS
         except Exception:
             return False
+
+    def fingerprint(self) -> Fingerprint | None:
+        reader = csv.DictReader(self.input_file)
+        row = None
+        for row in reader:
+            pass
+        if row is None:
+            return
+        hash = hashlib.sha256()
+        for field in reader.fieldnames:
+            hash.update(row[field].encode("utf8"))
+        return Fingerprint(
+            starting_date=parse_date(row["Date (UTC)"]),
+            first_row_hash=hash.hexdigest(),
+        )
 
     def __call__(self) -> typing.Generator[Transaction, None, None]:
         filename = None

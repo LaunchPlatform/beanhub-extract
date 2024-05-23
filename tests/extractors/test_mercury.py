@@ -159,3 +159,17 @@ def test_extractor(
             )
             == expected
         )
+
+
+@pytest.mark.parametrize(
+    "input_file, expected",
+    [
+        ("mercury.csv", True),
+        ("empty.csv", False),
+        ("other.csv", False),
+    ],
+)
+def test_detect(fixtures_folder: pathlib.Path, input_file: str, expected: bool):
+    with open(fixtures_folder / input_file, "rt") as fo:
+        extractor = MercuryExtractor(fo)
+        assert extractor.detect() == expected

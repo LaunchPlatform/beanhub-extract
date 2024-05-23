@@ -29,9 +29,29 @@ def parse_datetime(timestamp_str: str) -> datetime.datetime:
 class MercuryExtractor:
     EXTRACTOR_NAME = "mercury"
     DEFAULT_IMPORT_ID = "{{ file | as_posix_path }}:{{ reversed_lineno }}"
+    ALL_FIELDS = [
+        "Date (UTC)",
+        "Description",
+        "Amount",
+        "Status",
+        "Source Account",
+        "Bank Description",
+        "Reference",
+        "Note",
+        "Last Four Digits",
+        "Name On Card",
+        "Category",
+        "GL Code",
+        "Timestamp",
+        "Original Currency",
+    ]
 
     def __init__(self, input_file: typing.TextIO):
         self.input_file = input_file
+
+    def detect(self) -> bool:
+        reader = csv.DictReader(self.input_file)
+        return reader.fieldnames == self.ALL_FIELDS
 
     def __call__(self) -> typing.Generator[Transaction, None, None]:
         filename = None

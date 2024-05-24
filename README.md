@@ -56,3 +56,12 @@ If you find any particular bank CSV file or format missing and want this library
 ### [Mercury](https://mercury.com/) - `mercury`
 
 To export the CSV file, please visit the [Transactions](https://app.mercury.com/transactions) page and click "Add Filter" to limit the time range of your export, then click the "Export All" button on the right-hand side.
+
+### [Chase](chase.com)
+
+#### Chase Credit Card - `chase_credit_card`
+
+To export the Chase Credit Card CSV file, please visit and login the Chase website.
+Expand the credit card details by clicking on the card you would like to export.
+Click the "Download account activity" button on the right hand side of the Account activity section.
+Click the "Download" button after you select the activity time range to "Year to date".

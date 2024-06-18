@@ -97,7 +97,7 @@ class MercuryExtractor(ExtractorBase):
                 name_on_card=row.pop("Name On Card"),
                 last_four_digits=row.pop("Last Four Digits"),
                 gl_code=row.pop("GL Code"),
-                timestamp=parse_datetime(row.pop("Timestamp")).replace(tzinfo=timezone),
+                timestamp=timezone.localize(parse_datetime(row.pop("Timestamp"))),
             )
             if row:
                 kwargs["extra"] = row

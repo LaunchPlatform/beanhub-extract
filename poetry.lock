@@ -37,6 +37,17 @@ files = [
 ]
 
 [[package]]
+name = "iso8601"
+version = "2.1.0"
+description = "Simple module to parse ISO 8601 dates"
+optional = false
+python-versions = ">=3.7,<4.0"
+files = [
+    {file = "iso8601-2.1.0-py3-none-any.whl", hash = "sha256:aac4145c4dcb66ad8b648a02830f5e2ff6c24af20f4f482689be402db2429242"},
+    {file = "iso8601-2.1.0.tar.gz", hash = "sha256:6b1d3829ee8921c4301998c909f7829fa9ed3cbdac0d3b16af2d743aed1ba8df"},
+]
+
+[[package]]
 name = "packaging"
 version = "24.0"
 description = "Core utilities for Python packages"
@@ -140,4 +151,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "e648626e38b1a1406675afc1a8e1417e4b1bf3c6422e72a7b09240f4ab8394fa"
+content-hash = "780ee05440e85973aee7179cde3084ea2dad4693272abb1c61279cb5f955293c"

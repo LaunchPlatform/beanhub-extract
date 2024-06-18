@@ -12,6 +12,8 @@ class Transaction:
     lineno: int | None = None
     # the entry line number of the source file in reverse order. comes handy for CSV files in desc datetime order
     reversed_lineno: int | None = None
+    # the unique id of the transaction
+    transaction_id: str | None = None
     # date of the transaction
     date: datetime.date | None = None
     # date when the transaction posted
@@ -30,6 +32,8 @@ class Transaction:
     currency: str | None = None
     # category of the transaction, like Entertainment, Shopping, etc..
     category: str | None = None
+    # subcategory of the transaction, like Entertainment, Shopping, etc..
+    subcategory: str | None = None
     # status of the transaction
     status: str | None = None
     # type of the transaction, such as Sale, Return, Debit, etc

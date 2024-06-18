@@ -9,6 +9,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.9"
 pytz = ">= 2023.1, <2025"
+iso8601 = "^2.1.0"
 
 [tool.poetry.dev-dependencies]
 

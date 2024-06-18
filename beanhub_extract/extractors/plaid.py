@@ -1,0 +1,143 @@
+import csv
+import datetime
+import decimal
+import hashlib
+import os
+import typing
+
+import iso8601
+
+from ..data_types import Fingerprint
+from ..data_types import Transaction
+from .base import ExtractorBase
+
+
+SIMPLE_VALUE_FIELDS = [
+    "date",
+    "name",
+    "amount",
+    "pending",
+    "website",
+    "datetime",
+    "logo_url",
+    "account_id",
+    "category_id",
+    "check_number",
+    "account_owner",
+    "merchant_name",
+    "transaction_id",
+    "authorized_date",
+    "payment_channel",
+    "transaction_code",
+    "transaction_type",
+    "iso_currency_code",
+    "merchant_entity_id",
+    "authorized_datetime",
+    "pending_transaction_id",
+    "unofficial_currency_code",
+    "personal_finance_category_icon_url",
+]
+COUNTER_PARTIES_PREFIX = "counterparties__"
+COUNTER_PARTIES_FIELDS = [
+    "name",
+    "type",
+    "website",
+    "logo_url",
+    "entity_id",
+    "phone_number",
+    "confidence_level",
+]
+PERSONAL_FINANCE_CATEGORY_PREFIX = "personal_finance_category__"
+PERSONAL_FINANCE_CATEGORY_FIELDS = ["primary", "detailed", "confidence_level"]
+ALL_FIELDS = (
+    SIMPLE_VALUE_FIELDS
+    + list(map(lambda x: COUNTER_PARTIES_PREFIX + x, COUNTER_PARTIES_FIELDS))
+    + list(
+        map(
+            lambda x: PERSONAL_FINANCE_CATEGORY_PREFIX + x,
+            PERSONAL_FINANCE_CATEGORY_FIELDS,
+        )
+    )
+)
+
+
+def parse_date(date_str: str) -> datetime.date:
+    parts = date_str.split("-")
+    return datetime.date(*(map(int, parts)))
+
+
+class PlaidExtractor(ExtractorBase):
+    EXTRACTOR_NAME = "plaid"
+    DEFAULT_IMPORT_ID = "{{ transaction_id }}"
+
+    def detect(self) -> bool:
+        reader = csv.DictReader(self.input_file)
+        try:
+            return reader.fieldnames == ALL_FIELDS
+        except Exception:
+            return False
+
+    def fingerprint(self) -> Fingerprint | None:
+        reader = csv.DictReader(self.input_file)
+        try:
+            row = next(reader)
+        except StopIteration:
+            return
+        hash = hashlib.sha256()
+        for field in reader.fieldnames:
+            hash.update(row[field].encode("utf8"))
+        return Fingerprint(
+            starting_date=parse_date(row["authorized_date"]),
+            first_row_hash=hash.hexdigest(),
+        )
+
+    def __call__(self) -> typing.Generator[Transaction, None, None]:
+        filename = None
+        if hasattr(self.input_file, "name"):
+            filename = self.input_file.name
+        row_count_reader = csv.DictReader(self.input_file)
+        row_count = 0
+        for _ in row_count_reader:
+            row_count += 1
+        self.input_file.seek(os.SEEK_SET, 0)
+        reader = csv.DictReader(self.input_file)
+        for i, row in enumerate(reader):
+            pending = row.pop("pending") == "TRUE"
+            if pending:
+                date = parse_date(row.pop("date"))
+                post_date = None
+            else:
+                date = parse_date(row.pop("authorized_date"))
+                post_date = parse_date(row.pop("date"))
+
+            dt = row.pop("datetime")
+            if not dt:
+                timestamp = None
+            else:
+                timestamp = iso8601.parse_date(dt)
+
+            kwargs = dict(
+                transaction_id=row.pop("transaction_id"),
+                date=date,
+                post_date=post_date,
+                status="pending" if pending else "posted",
+                desc=row.pop("name"),
+                payee=row.pop("merchant_name"),
+                source_account=row.pop("account_id"),
+                amount=decimal.Decimal(row.pop("amount")),
+                type=row.pop("payment_channel"),
+                currency=row.pop("iso_currency_code"),
+                category=row.pop("personal_finance_category__primary"),
+                subcategory=row.pop("personal_finance_category__detailed"),
+                timestamp=timestamp,
+            )
+            if row:
+                kwargs["extra"] = row
+
+            yield Transaction(
+                extractor=self.EXTRACTOR_NAME,
+                file=filename,
+                lineno=i + 1,
+                reversed_lineno=i - row_count,
+                **kwargs
+            )

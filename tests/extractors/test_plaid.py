@@ -251,7 +251,8 @@ def test_extractor(
 @pytest.mark.parametrize(
     "input_file, expected",
     [
-        ("mercury.csv", True),
+        ("plaid.csv", True),
+        ("mercury.csv", False),
         ("chase_credit_card.csv", False),
         ("empty.csv", False),
         ("other.csv", False),
@@ -260,14 +261,14 @@ def test_extractor(
 )
 def test_detect(fixtures_folder: pathlib.Path, input_file: str, expected: bool):
     with open(fixtures_folder / input_file, "rt") as fo:
-        extractor = MercuryExtractor(fo)
+        extractor = PlaidExtractor(fo)
         assert extractor.detect() == expected
 
 
 def test_fingerprint(fixtures_folder: pathlib.Path):
-    with open(fixtures_folder / "mercury.csv", "rt") as fo:
-        extractor = MercuryExtractor(fo)
+    with open(fixtures_folder / "plaid.csv", "rt") as fo:
+        extractor = PlaidExtractor(fo)
         assert extractor.fingerprint() == Fingerprint(
-            starting_date=datetime.date(2024, 4, 15),
-            first_row_hash="24039f29eb959f67b19e1bdd0b8466513bef2c5bcdf5c11dd463e744abc23f85",
+            starting_date=datetime.date(2024, 1, 7),
+            first_row_hash="264b70b31bf27298bef4357774ed2ca09f4a4e64e7e73cfb985b3afff76b5b06",
         )

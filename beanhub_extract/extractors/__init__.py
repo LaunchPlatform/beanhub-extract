@@ -4,10 +4,12 @@ import typing
 from .base import ExtractorBase
 from .chase import ChaseCreditCardExtractor
 from .mercury import MercuryExtractor
+from .plaid import PlaidExtractor
 
 ALL_EXTRACTORS: dict[str, typing.Type[ExtractorBase]] = {
     MercuryExtractor.EXTRACTOR_NAME: MercuryExtractor,
     ChaseCreditCardExtractor.EXTRACTOR_NAME: ChaseCreditCardExtractor,
+    PlaidExtractor.EXTRACTOR_NAME: PlaidExtractor,
 }
 
 

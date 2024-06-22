@@ -116,8 +116,15 @@ class PlaidExtractor(ExtractorBase):
             else:
                 timestamp = iso8601.parse_date(dt)
 
+            txn_id = row.pop("transaction_id")
+            # For some banks, such as AMEX credit cards, when a pending transaction posted, the old one will
+            # be deleted and a new one with the pending transaction id for the old one will be added.
+            # To avoid txn id change after it gets posted, we should always use pending txn id first if available
+            pending_transaction_id = row.pop("pending_transaction_id")
+            if pending_transaction_id.strip():
+                txn_id = pending_transaction_id
             kwargs = dict(
-                transaction_id=row.pop("transaction_id"),
+                transaction_id=txn_id,
                 date=date,
                 post_date=post_date,
                 status="pending" if pending else "posted",

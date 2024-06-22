@@ -34,6 +34,8 @@ class Transaction:
     category: str | None = None
     # subcategory of the transaction, like Entertainment, Shopping, etc..
     subcategory: str | None = None
+    # pending status of the transaction
+    pending: bool | None = None
     # status of the transaction
     status: str | None = None
     # type of the transaction, such as Sale, Return, Debit, etc

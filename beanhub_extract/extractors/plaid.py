@@ -102,7 +102,7 @@ class PlaidExtractor(ExtractorBase):
         self.input_file.seek(os.SEEK_SET, 0)
         reader = csv.DictReader(self.input_file)
         for i, row in enumerate(reader):
-            pending = row.pop("pending") == "TRUE"
+            pending = row.pop("pending").lower() == "true"
             if pending:
                 date = parse_date(row.pop("date"))
                 post_date = None
@@ -128,6 +128,7 @@ class PlaidExtractor(ExtractorBase):
                 date=date,
                 post_date=post_date,
                 status="pending" if pending else "posted",
+                pending=pending,
                 desc=row.pop("name"),
                 payee=row.pop("merchant_name"),
                 source_account=row.pop("account_id"),

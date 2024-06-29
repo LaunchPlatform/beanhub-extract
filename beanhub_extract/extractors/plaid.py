@@ -107,8 +107,16 @@ class PlaidExtractor(ExtractorBase):
                 date = parse_date(row.pop("date"))
                 post_date = None
             else:
-                date = parse_date(row.pop("authorized_date"))
-                post_date = parse_date(row.pop("date"))
+                raw_authorized_date = row.pop("authorized_date")
+                date_value = parse_date(row.pop("date"))
+                post_date = date_value
+                if not raw_authorized_date.strip():
+                    # in some strange situation, authorized_date could be empty, such as sandbox mode plaid credit card,
+                    # not sure if this could also happen in production. but regardless, if it's the case, let's just
+                    # use the date value as date and post date in the same time
+                    date = date_value
+                else:
+                    date = parse_date(raw_authorized_date)
 
             dt = row.pop("datetime")
             if not dt:

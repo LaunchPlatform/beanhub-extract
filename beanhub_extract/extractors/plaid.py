@@ -86,8 +86,15 @@ class PlaidExtractor(ExtractorBase):
         hash = hashlib.sha256()
         for field in reader.fieldnames:
             hash.update(row[field].encode("utf8"))
+
+        raw_authorized_date = row.pop("authorized_date")
+        raw_date_value = row.pop("date")
+        if raw_authorized_date.strip():
+            date_value = raw_authorized_date
+        else:
+            date_value = raw_date_value
         return Fingerprint(
-            starting_date=parse_date(row["authorized_date"]),
+            starting_date=parse_date(date_value),
             first_row_hash=hash.hexdigest(),
         )
 

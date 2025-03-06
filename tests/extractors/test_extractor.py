@@ -10,6 +10,7 @@ from beanhub_extract.extractors import detect_extractor
     [
         ("mercury.csv", "mercury"),
         ("chase_credit_card.csv", "chase_credit_card"),
+        ("wealthsimple.csv", "wealthsimple"),
         ("other.csv", None),
         (pytest.lazy_fixture("zip_file"), None),
     ],

@@ -1,0 +1,6 @@
+"date","transaction","description","amount","balance"
+"2024-04-01","INT","Interest earned","12.34","5123.45"
+"2024-04-02","SPEND","Coffee Shop","-4.56","5118.89"
+"2024-04-03","CASHBACK","Cash back reward","1.23","5120.12"
+"2024-04-04","SPEND","Grocery Store","-45.67","5074.45"
+"2024-04-15","AFT_IN","Direct deposit","1234.56","6309.01" 

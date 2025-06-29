@@ -1,5 +1,4 @@
 import csv
-import datetime
 import decimal
 import hashlib
 import os
@@ -9,8 +8,8 @@ import iso8601
 
 from ..data_types import Fingerprint
 from ..data_types import Transaction
+from ..utils import parse_date
 from .base import ExtractorBase
-
 
 SIMPLE_VALUE_FIELDS = [
     "date",
@@ -59,11 +58,6 @@ ALL_FIELDS = (
         )
     )
 )
-
-
-def parse_date(date_str: str) -> datetime.date:
-    parts = date_str.split("-")
-    return datetime.date(*(map(int, parts)))
 
 
 class PlaidExtractor(ExtractorBase):
@@ -162,5 +156,5 @@ class PlaidExtractor(ExtractorBase):
                 file=filename,
                 lineno=i + 1,
                 reversed_lineno=i - row_count,
-                **kwargs
+                **kwargs,
             )

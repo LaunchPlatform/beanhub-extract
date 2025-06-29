@@ -6,20 +6,13 @@ import os
 import typing
 from dataclasses import fields
 
-import iso8601
-
 from ..data_types import Fingerprint
 from ..data_types import Transaction
+from ..utils import parse_date
 from .base import ExtractorBase
-
 
 EXCLUDED_FIELDS = frozenset(["extractor", "file", "lineno", "reversed_lineno", "extra"])
 ALL_FIELDS = frozenset(field.name for field in fields(Transaction)) - EXCLUDED_FIELDS
-
-
-def parse_date(date_str: str) -> datetime.date:
-    parts = date_str.split("-")
-    return datetime.date(*(map(int, parts)))
 
 
 class CSVExtractor(ExtractorBase):
@@ -70,7 +63,17 @@ class CSVExtractor(ExtractorBase):
                 if field.name not in row:
                     continue
                 value = row.pop(field.name)
-                kwargs[field.name] = value
+                field_type, _ = typing.get_args(field.type)
+                if value is not None and value.strip():
+                    if field_type is datetime.date:
+                        value = parse_date(value)
+                    elif field_type is datetime.datetime:
+                        value = datetime.datetime.fromisoformat(value)
+                    elif field_type is decimal.Decimal:
+                        value = decimal.Decimal(value)
+                    elif field_type is bool:
+                        value = value.lower() == "true"
+                    kwargs[field.name] = value
             if row:
                 kwargs["extra"] = row
 

@@ -7,19 +7,8 @@ import pytest
 
 from beanhub_extract.data_types import Fingerprint
 from beanhub_extract.data_types import Transaction
-from beanhub_extract.extractors.plaid import parse_date
 from beanhub_extract.extractors.plaid import PlaidExtractor
 from beanhub_extract.utils import strip_txn_base_path
-
-
-@pytest.mark.parametrize(
-    "date_str, expected",
-    [
-        ("2024-05-04", datetime.date(2024, 5, 4)),
-    ],
-)
-def test_parse_date(date_str: str, expected: datetime.date):
-    assert parse_date(date_str) == expected
 
 
 @pytest.mark.parametrize(

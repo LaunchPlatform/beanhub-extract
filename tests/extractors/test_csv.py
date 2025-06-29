@@ -45,7 +45,6 @@ from beanhub_extract.utils import strip_txn_base_path
                     status="Paid",
                     type="Debit",
                     source_account="Mercury",
-                    note="",
                     payee="BeanHub",
                     gl_code="5100",
                     name_on_card="Fang-Pen Lin",

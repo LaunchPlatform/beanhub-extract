@@ -2,18 +2,12 @@ import datetime
 import decimal
 import functools
 import pathlib
-from pickle import FALSE
 
 import pytest
-import pytz
 
 from beanhub_extract.data_types import Fingerprint
 from beanhub_extract.data_types import Transaction
 from beanhub_extract.extractors.csv import CSVExtractor
-from beanhub_extract.extractors.mercury import MercuryExtractor
-from beanhub_extract.extractors.mercury import parse_date
-from beanhub_extract.extractors.mercury import parse_datetime
-from beanhub_extract.extractors.mercury import parse_time
 from beanhub_extract.utils import strip_txn_base_path
 
 
@@ -95,4 +89,13 @@ def test_extractor(
                 )
             )
             == expected
+        )
+
+
+def test_fingerprint(fixtures_folder: pathlib.Path):
+    with open(fixtures_folder / "csv.csv", "rt") as fo:
+        extractor = CSVExtractor(fo)
+        assert extractor.fingerprint() == Fingerprint(
+            starting_date=datetime.date(2025, 6, 28),
+            first_row_hash="990ff747418ee0c286dbaf5993b5f01d6fcaf803a6b454ec20bd1796cc287ffc",
         )

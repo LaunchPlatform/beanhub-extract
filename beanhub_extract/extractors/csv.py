@@ -22,7 +22,7 @@ class CSVExtractor(ExtractorBase):
     def detect(self) -> bool:
         reader = csv.DictReader(self.input_file)
         try:
-            return reader.fieldnames == ALL_FIELDS
+            return frozenset(reader.fieldnames).issuperset(ALL_FIELDS)
         except Exception:
             return False
 
@@ -36,12 +36,14 @@ class CSVExtractor(ExtractorBase):
         for field in reader.fieldnames:
             hash.update(row[field].encode("utf8"))
 
-        raw_authorized_date = row.pop("authorized_date")
-        raw_date_value = row.pop("date")
-        if raw_authorized_date.strip():
-            date_value = raw_authorized_date
+        date = row.pop("date")
+        post_date = row.pop("post_date")
+        if date.strip():
+            date_value = date
         else:
-            date_value = raw_date_value
+            date_value = post_date
+        if not date_value:
+            date_value = datetime.date(1970, 1, 1)
         return Fingerprint(
             starting_date=parse_date(date_value),
             first_row_hash=hash.hexdigest(),

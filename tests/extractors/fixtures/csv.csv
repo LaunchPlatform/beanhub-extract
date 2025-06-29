@@ -1,0 +1,3 @@
+transaction_id,date,post_date,timestamp,timezone,desc,bank_desc,amount,currency,category,subcategory,pending,status,type,source_account,dest_account,note,reference,payee,gl_code,name_on_card,last_four_digits,_custom
+4c5484e6-dad0-4243-8c52-be74d6c84d59,2025-06-28,2025-07-01,2025-06-29T00:32:53.036910+00:00,America/Los_Angeles,BeanHub subscription,BEANHUB SUB,12.34,USD,Business,Software,False,Paid,Debit,Mercury,,,,BeanHub,5100,Fang-Pen Lin,1234,val0
+39751802-7646-4c24-b9bb-227c9f68a8f2,2025-07-03,"",2025-07-03T00:48:51.024820+00:00,America/Los_Angeles,CakeLens subscription,CAKELENS,5.67,USD,Business,Software,True,Paid,Debit,Mercury,,AI gen video detection service,,BeanHub,5100,Fang-Pen Lin,1234,val1

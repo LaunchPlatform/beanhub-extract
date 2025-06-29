@@ -4,7 +4,6 @@ import functools
 import pathlib
 
 import pytest
-import pytz
 
 from beanhub_extract.data_types import Fingerprint
 from beanhub_extract.data_types import Transaction

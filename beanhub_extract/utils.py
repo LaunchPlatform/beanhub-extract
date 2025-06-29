@@ -1,4 +1,5 @@
 import dataclasses
+import datetime
 import pathlib
 
 from .data_types import Transaction
@@ -32,3 +33,8 @@ def strip_txn_base_path(
             | dict(file=strip_base_path(base, transaction.file, pure_posix))
         )
     )
+
+
+def parse_date(date_str: str) -> datetime.date:
+    parts = date_str.split("-")
+    return datetime.date(*(map(int, parts)))

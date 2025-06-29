@@ -1,6 +1,6 @@
 [project]
 name = "beanhub-extract"
-version = "0.1.5"
+version = "0.1.6"
 description = "The simple library for extracting all kind of bank account transaction export files, mostly for beanhub-import to inject and generate transactions"
 authors = [{ name = "Fang-Pen Lin", email = "fangpen@launchplatform.com" }]
 requires-python = "~=3.9"

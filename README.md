@@ -71,7 +71,7 @@ Click the "Download" button after you select the activity time range to "Year to
 In many cases, you have your own tools extracting transaction data into CSV files.
 Without implementing your own beanhub-extract extractor, you won't be able to ingest the data with beanhub-import.
 To make it much easier for cases like this, we also provide the `csv` extractor.
-With that, you can extract transactions into this standard CSV file as long as the fields name are defined in the Transaction dataclass.
+With that, you can extract transactions into this standard CSV file as long as the fields name are defined in the [Transaction dataclass](beanhub_extract/data_types.py#L7-L60).
 Only the following metadata fields are not supported (as they will be generated and assigned by the extractor):
 
  - `extractor`

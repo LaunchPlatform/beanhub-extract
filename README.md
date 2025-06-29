@@ -65,3 +65,30 @@ To export the Chase Credit Card CSV file, please visit and login the Chase websi
 Expand the credit card details by clicking on the card you would like to export.
 Click the "Download account activity" button on the right hand side of the Account activity section.
 Click the "Download" button after you select the activity time range to "Year to date".
+
+### CSV - `csv`
+
+In many cases, you have your own tools extracting transaction data into CSV files.
+Without implementing your own beanhub-extract extractor, you won't be able to ingest the data with beanhub-import.
+To make it much easier for cases like this, we also provide the `csv` extractor.
+With that, you can extract transactions into this standard CSV file as long as the fields name are defined in the Transaction dataclass.
+Only the following metadata fields are not supported (as they will be generated and assigned by the extractor):
+
+ - `extractor`
+ - `file`
+ - `lineno`
+ - `reversed_lineno`
+
+There are a few fields with non-string types, their format are defined as below:
+
+#### Date
+
+The `date` and `post_date` should be in `YYYY-MM-DD` format.
+
+#### Datetime
+
+The `timestamp` should be in iso8601 format.
+
+#### Bool
+
+The `pending` field should be either `ture` or `false` (case-insensitive)

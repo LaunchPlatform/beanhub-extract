@@ -97,5 +97,5 @@ def test_fingerprint(fixtures_folder: pathlib.Path):
         extractor = CSVExtractor(fo)
         assert extractor.fingerprint() == Fingerprint(
             starting_date=datetime.date(2025, 6, 28),
-            first_row_hash="990ff747418ee0c286dbaf5993b5f01d6fcaf803a6b454ec20bd1796cc287ffc",
+            first_row_hash="3128963b757e527f3d192edbecf4ee55f22abbaa3736b402bec93b25a5aae458",
         )

@@ -43,7 +43,7 @@ from beanhub_extract.utils import strip_txn_base_path
                     gl_code="5100",
                     name_on_card="Fang-Pen Lin",
                     last_four_digits="1234",
-                    extra=None,
+                    extra=dict(_custom="val0"),
                 ),
                 Transaction(
                     extractor="csv",
@@ -71,7 +71,7 @@ from beanhub_extract.utils import strip_txn_base_path
                     gl_code="5100",
                     name_on_card="Fang-Pen Lin",
                     last_four_digits="1234",
-                    extra=None,
+                    extra=dict(_custom="val1"),
                 ),
             ],
         ),

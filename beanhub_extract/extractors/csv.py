@@ -17,7 +17,7 @@ ALL_FIELDS = frozenset(field.name for field in fields(Transaction)) - EXCLUDED_F
 
 class CSVExtractor(ExtractorBase):
     EXTRACTOR_NAME = "csv"
-    DEFAULT_IMPORT_ID = "{{ file | as_posix_path }}:{{ reversed_lineno }}"
+    DEFAULT_IMPORT_ID = "{{ file | as_posix_path }}:{{ lineno }}"
 
     def detect(self) -> bool:
         reader = csv.DictReader(self.input_file)
